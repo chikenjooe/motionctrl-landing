@@ -368,26 +368,44 @@
 
       <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
         <div class="card" style="padding:12px;">
-          <div style="aspect-ratio: 9 / 16; border-radius: 14px; overflow:hidden; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03);">
-            <img src="./assets/demo1.jpg" alt="Demo vertical" style="width:100%; height:100%; object-fit:cover; display:block;" />
+          <div style="aspect-ratio: 9 / 16; border-radius: 14px; overflow:hidden; border:1px solid rgba(255,255,255,.10); background: linear-gradient(135deg, rgba(232,255,61,.10), rgba(255,255,255,.03)); display:grid; place-items:center; position:relative;">
+            <div style="width:64px;height:64px;border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.28); display:grid; place-items:center;">
+              <div style="width:0;height:0;border-left:14px solid rgba(255,255,255,.88); border-top:10px solid transparent; border-bottom:10px solid transparent; margin-left:3px;"></div>
+            </div>
+            <div class="muted" style="position:absolute; left:12px; right:12px; bottom:12px; font-weight:800; color: rgba(255,255,255,.86);" data-i18n="g1_title">Dance / Trend (Video)</div>
+            <div class="muted" style="position:absolute; left:12px; right:12px; bottom:32px; font-size:12px;" data-i18n="g1_sub">Drop a 9:16 video here</div>
           </div>
         </div>
+
         <div class="card" style="padding:12px;">
-          <div style="aspect-ratio: 16 / 9; border-radius: 14px; overflow:hidden; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03);">
-            <img src="./assets/demo2.jpg" alt="Demo wide" style="width:100%; height:100%; object-fit:cover; display:block;" />
+          <div style="aspect-ratio: 16 / 9; border-radius: 14px; overflow:hidden; border:1px solid rgba(255,255,255,.10); background: linear-gradient(135deg, rgba(161,255,0,.08), rgba(255,255,255,.03)); display:grid; place-items:center; position:relative;">
+            <div style="width:64px;height:64px;border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.28); display:grid; place-items:center;">
+              <div style="width:0;height:0;border-left:14px solid rgba(255,255,255,.88); border-top:10px solid transparent; border-bottom:10px solid transparent; margin-left:3px;"></div>
+            </div>
+            <div class="muted" style="position:absolute; left:12px; right:12px; bottom:12px; font-weight:800; color: rgba(255,255,255,.86);" data-i18n="g2_title">UGC Ad (Video)</div>
+            <div class="muted" style="position:absolute; left:12px; right:12px; bottom:32px; font-size:12px;" data-i18n="g2_sub">Drop a 16:9 video here</div>
           </div>
         </div>
+
         <div class="card" style="padding:12px;">
-          <div style="aspect-ratio: 1 / 1; border-radius: 14px; overflow:hidden; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03);">
-            <img src="./assets/demo3.jpg" alt="Before / After" style="width:100%; height:100%; object-fit:cover; display:block;" />
+          <div style="aspect-ratio: 1 / 1; border-radius: 14px; overflow:hidden; border:1px solid rgba(255,255,255,.10); background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(232,255,61,.06)); display:grid; place-items:center; position:relative;">
+            <div style="width:64px;height:64px;border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.28); display:grid; place-items:center;">
+              <div style="width:0;height:0;border-left:14px solid rgba(255,255,255,.88); border-top:10px solid transparent; border-bottom:10px solid transparent; margin-left:3px;"></div>
+            </div>
+            <div class="muted" style="position:absolute; left:12px; right:12px; bottom:12px; font-weight:800; color: rgba(255,255,255,.86);" data-i18n="g3_title">Before → After</div>
+            <div class="muted" style="position:absolute; left:12px; right:12px; bottom:32px; font-size:12px;" data-i18n="g3_sub">Drop an image or video here</div>
           </div>
         </div>
       </div>
 
       <div class="cards" style="grid-template-columns: 1fr; margin-top:12px;">
         <div class="card" style="padding:12px;">
-          <div style="aspect-ratio: 16 / 9; border-radius: 14px; overflow:hidden; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03);">
-            <img src="./assets/demo4.jpg" alt="Demo" style="width:100%; height:100%; object-fit:cover; display:block;" />
+          <div style="aspect-ratio: 16 / 9; border-radius: 14px; overflow:hidden; border:1px solid rgba(255,255,255,.10); background: linear-gradient(135deg, rgba(232,255,61,.06), rgba(0,0,0,.22)); display:grid; place-items:center; position:relative;">
+            <div style="width:64px;height:64px;border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.28); display:grid; place-items:center;">
+              <div style="width:0;height:0;border-left:14px solid rgba(255,255,255,.88); border-top:10px solid transparent; border-bottom:10px solid transparent; margin-left:3px;"></div>
+            </div>
+            <div class="muted" style="position:absolute; left:12px; right:12px; bottom:12px; font-weight:800; color: rgba(255,255,255,.86);" data-i18n="g4_title">Meme Hook (Video)</div>
+            <div class="muted" style="position:absolute; left:12px; right:12px; bottom:32px; font-size:12px;" data-i18n="g4_sub">Drop a vertical video here</div>
           </div>
         </div>
       </div>
@@ -585,6 +603,15 @@
         gallery_ph1: 'Vertical demo #1',
         gallery_ph2: 'Wide demo #2',
         gallery_ph3: 'Before / After',
+        g1_title: 'Dance / Trend (Video)',
+        g1_sub: 'Drop a 9:16 video here',
+        g2_title: 'UGC Ad (Video)',
+        g2_sub: 'Drop a 16:9 video here',
+        g3_title: 'Before → After',
+        g3_sub: 'Drop an image or video here',
+        g4_title: 'Meme Hook (Video)',
+        g4_sub: 'Drop a vertical video here',
+
         gallery_fine: 'Tip: best-performing ads usually show before→after in the first 2 seconds.',
 
         foot_pricing: 'Pricing',
@@ -676,6 +703,15 @@
         gallery_ph1: 'Вертикальный пример #1',
         gallery_ph2: 'Широкий пример #2',
         gallery_ph3: 'До / После',
+        g1_title: 'Танец / Тренд (видео)',
+        g1_sub: 'Добавим видео 9:16 сюда',
+        g2_title: 'UGC реклама (видео)',
+        g2_sub: 'Добавим видео 16:9 сюда',
+        g3_title: 'До → После',
+        g3_sub: 'Добавим картинку или видео сюда',
+        g4_title: 'Мем-хук (видео)',
+        g4_sub: 'Добавим вертикальное видео сюда',
+
         gallery_fine: 'Подсказка: в рекламе лучше всего заходит до→после в первые 2 секунды.',
 
         foot_pricing: 'Цены',
@@ -709,7 +745,8 @@
     (function init(){
       document.getElementById('y').textContent = new Date().getFullYear();
       const q = new URLSearchParams(location.search);
-      const lang = q.get('lang') || localStorage.getItem('lang') || (((navigator.language || '').toLowerCase().startsWith('ru')) ? 'ru' : 'en');
+      // Default language must be English for ads/testing.
+      const lang = q.get('lang') || localStorage.getItem('lang') || 'en';
       setLang(lang);
     })();
 
