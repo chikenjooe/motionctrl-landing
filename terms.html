@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#07070A" />
+  <title>MotionCTRL — Terms</title>
+  <style>
+    :root{--bg:#07070A;--text:rgba(255,255,255,.92);--muted:rgba(255,255,255,.72);--card:rgba(255,255,255,.05);--stroke:rgba(255,255,255,.10);--hot:#e8ff3d;--hot2:#a1ff00;--max:920px}
+    *{box-sizing:border-box}
+    body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial; background:var(--bg); color:var(--text)}
+    body:before{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(232,255,61,.12), transparent 62%),
+        radial-gradient(820px 540px at 82% 6%, rgba(161,255,0,.08), transparent 60%),
+        radial-gradient(900px 700px at 50% 110%, rgba(255,255,255,.06), transparent 62%),
+        var(--bg);
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding: 22px 18px 80px;}
+    .top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:900}
+    .logo{width:24px;height:24px;border-radius:9px;background:linear-gradient(135deg,var(--hot),var(--hot2))}
+    .chip{border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); padding: 8px 10px; border-radius:999px; font-size:13px}
+    .chip button{border:0;background:transparent;color:inherit;cursor:pointer;font-weight:800;font-size:12px;opacity:.9}
+    .chip button.active{text-decoration:underline; text-underline-offset:4px; opacity:1}
+    h1{margin:18px 0 6px; font-size: clamp(28px, 4.2vw, 44px); letter-spacing:-.02em}
+    .meta{color:var(--muted); margin:0 0 18px; line-height:1.45}
+    .card{border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); border-radius:18px; padding: 16px; line-height:1.6}
+    h2{margin:18px 0 8px; font-size:18px}
+    ul{margin: 8px 0 0 18px}
+    .small{font-size:12px; color: rgba(255,255,255,.64); margin-top: 14px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="./index.html"><span class="logo"></span>MotionCTRL</a>
+      <div class="chip">
+        <button id="en" class="active" type="button">EN</button>
+        <span style="opacity:.55">/</span>
+        <button id="ru" type="button">RU</button>
+      </div>
+    </div>
+
+    <h1 id="title">Terms</h1>
+    <p class="meta" id="meta">Last updated: 2026-02-14. MVP terms draft for hypothesis testing.</p>
+
+    <div class="card" id="enBlock">
+      <h2>1) Acceptable use</h2>
+      <ul>
+        <li>Only upload content you own or have rights to.</li>
+        <li>No impersonation of real people without consent.</li>
+        <li>No illegal, harmful, or abusive content.</li>
+      </ul>
+
+      <h2>2) Output limitations</h2>
+      <p>Results depend on the inputs and model limitations. We do not guarantee a specific likeness or quality.</p>
+
+      <h2>3) Payments</h2>
+      <p>This page is an MVP landing. Pricing on the page may change. If/when payments are enabled, we will provide clear refund and chargeback rules.</p>
+
+      <h2>4) Contact</h2>
+      <p>Support: <a href="mailto:hello@motionctrl.example">hello@motionctrl.example</a></p>
+
+      <div class="small">Note: Replace placeholders (email/domain) before running ads.</div>
+    </div>
+
+    <div class="card" id="ruBlock" style="display:none">
+      <h2>1) Допустимое использование</h2>
+      <ul>
+        <li>Загружай только контент, на который у тебя есть права.</li>
+        <li>Не выдавай реальных людей за других без согласия.</li>
+        <li>Никакого незаконного, вредного или абьюзивного контента.</li>
+      </ul>
+
+      <h2>2) Ограничения результата</h2>
+      <p>Результат зависит от исходников и ограничений модели. Мы не гарантируем конкретное сходство или качество.</p>
+
+      <h2>3) Оплата</h2>
+      <p>Это MVP-лендинг. Цены на странице могут меняться. Когда появится оплата, мы добавим понятные правила возвратов.</p>
+
+      <h2>4) Контакты</h2>
+      <p>Поддержка: <a href="mailto:hello@motionctrl.example">hello@motionctrl.example</a></p>
+
+      <div class="small">Важно: перед запуском рекламы поменяй плейсхолдеры (email/domain) на реальные.</div>
+    </div>
+  </div>
+
+  <script>
+    function setLang(lang){
+      const en = document.getElementById('enBlock');
+      const ru = document.getElementById('ruBlock');
+      document.getElementById('en').classList.toggle('active', lang==='en');
+      document.getElementById('ru').classList.toggle('active', lang==='ru');
+      en.style.display = lang==='en' ? 'block' : 'none';
+      ru.style.display = lang==='ru' ? 'block' : 'none';
+      document.documentElement.lang = lang;
+      localStorage.setItem('lang', lang);
+      document.getElementById('title').textContent = lang==='ru' ? 'Условия использования' : 'Terms';
+      document.getElementById('meta').textContent = lang==='ru'
+        ? 'Обновлено: 2026-02-14. Черновик условий для MVP и проверки гипотезы.'
+        : 'Last updated: 2026-02-14. MVP terms draft for hypothesis testing.';
+    }
+    document.getElementById('en').addEventListener('click', ()=>setLang('en'));
+    document.getElementById('ru').addEventListener('click', ()=>setLang('ru'));
+    setLang(localStorage.getItem('lang') || ((navigator.language||'').toLowerCase().startsWith('ru') ? 'ru' : 'en'));
+  </script>
+</body>
+</html>

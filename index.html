@@ -202,6 +202,9 @@
       border:1px solid rgba(232,255,61,.22);
     }
     .money{font-size: 40px; font-weight: 900; letter-spacing:-.03em; margin: 4px 0 10px;}
+    .strike{opacity:.6; text-decoration: line-through; text-decoration-thickness: 2px; margin-right:10px;}
+    .deal{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+    .deal .new{color: rgba(255,255,255,.96)}
     ul{margin: 10px 0 14px 18px; padding:0; color: rgba(255,255,255,.78); line-height:1.55;}
 
     /* FAQ */
@@ -278,7 +281,7 @@
         </div>
 
         <div class="panel">
-          <div class="mini-title" data-i18n="panel_title">StoryBrand — the plan</div>
+          <div class="mini-title" data-i18n="panel_title">Your plan</div>
           <div class="steps">
             <div class="step">
               <div class="num">1</div>
@@ -403,7 +406,7 @@
       <div class="pricing">
         <div class="price">
           <div class="mini-title" data-i18n="price1_kicker">Starter</div>
-          <div class="money" data-i18n="price1_money">$3 / video</div>
+          <div class="money deal"><span class="strike" data-i18n="price1_old">$3</span><span class="new" data-i18n="price1_money">$1.99 / video</span></div>
           <ul>
             <li data-i18n="price1_li1">720p export</li>
             <li data-i18n="price1_li2">Watermark</li>
@@ -414,7 +417,7 @@
         <div class="price featured">
           <div class="tag" data-i18n="tag_best">Best value</div>
           <div class="mini-title" data-i18n="price2_kicker">Pro</div>
-          <div class="money" data-i18n="price2_money">$9 / 5 videos</div>
+          <div class="money deal"><span class="strike" data-i18n="price2_old">$9</span><span class="new" data-i18n="price2_money">$6.99 / 5 videos</span></div>
           <ul>
             <li data-i18n="price2_li1">1080p export</li>
             <li data-i18n="price2_li2">No watermark</li>
@@ -423,7 +426,7 @@
           <a class="btn primary" href="#cta" data-i18n="price2_cta">Get Pro</a>
         </div>
       </div>
-      <p class="fine" style="margin-top:10px" data-i18n="pricing_fine">Prices are placeholders for hypothesis testing. Adjust after you see CPA/CTR.</p>
+      <p class="fine" style="margin-top:10px" data-i18n="pricing_fine">Launch discount is limited. We’ll adjust pricing after we see demand.</p>
     </section>
 
     <section id="faq">
@@ -486,8 +489,10 @@
         <div>© <span id="y"></span> MotionCTRL</div>
         <div style="display:flex; gap:12px; flex-wrap:wrap">
           <a href="#faq">FAQ</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#cta">Waitlist</a>
+          <a href="#pricing" data-i18n="foot_pricing">Pricing</a>
+          <a href="#cta" data-i18n="foot_waitlist">Waitlist</a>
+          <a href="./privacy.html" data-i18n="foot_privacy">Privacy</a>
+          <a href="./terms.html" data-i18n="foot_terms">Terms</a>
         </div>
       </div>
       <div class="fine" style="margin-top:10px" data-i18n="footer_fine">This is a landing page for hypothesis testing. Not affiliated with Higgsfield.</div>
@@ -508,7 +513,7 @@
         cta_secondary: 'See pricing',
         hero_fine: 'MVP landing for hypothesis testing. No payment collected on this page yet.',
 
-        panel_title: 'StoryBrand — the plan',
+        panel_title: 'Your plan',
         step1_title: 'You want content that pops.',
         step1_body: 'But filming, editing and motion work is slow and expensive.',
         step2_title: 'We give you a shortcut.',
@@ -538,19 +543,21 @@
         pricing_title: 'Pricing',
         pricing_lead: 'Keep it cheap. Test, iterate, repeat.',
         price1_kicker: 'Starter',
-        price1_money: '$3 / video',
+        price1_old: '$3',
+        price1_money: '$1.99 / video',
         price1_li1: '720p export',
         price1_li2: 'Watermark',
         price1_li3: 'Email delivery',
         price1_cta: 'Try Starter',
         tag_best: 'Best value',
         price2_kicker: 'Pro',
-        price2_money: '$9 / 5 videos',
+        price2_old: '$9',
+        price2_money: '$6.99 / 5 videos',
         price2_li1: '1080p export',
         price2_li2: 'No watermark',
         price2_li3: 'Priority queue',
         price2_cta: 'Get Pro',
-        pricing_fine: 'Prices are placeholders for hypothesis testing. Adjust after you see CPA/CTR.',
+        pricing_fine: 'Launch discount is limited. We’ll adjust pricing after we see demand.',
 
         faq_title: 'FAQ',
         faq_lead: 'Clear answers reduce drop-off.',
@@ -580,6 +587,11 @@
         gallery_ph3: 'Before / After',
         gallery_fine: 'Tip: best-performing ads usually show before→after in the first 2 seconds.',
 
+        foot_pricing: 'Pricing',
+        foot_waitlist: 'Waitlist',
+        foot_privacy: 'Privacy',
+        foot_terms: 'Terms',
+
         footer_fine: 'This is a landing page for hypothesis testing. Not affiliated with Higgsfield.'
       },
       ru: {
@@ -592,7 +604,7 @@
         cta_secondary: 'Посмотреть цены',
         hero_fine: 'Это MVP-лендинг для проверки гипотезы. Оплата на этой странице не принимается.',
 
-        panel_title: 'StoryBrand — план',
+        panel_title: 'План',
         step1_title: 'Хочется контента, который цепляет.',
         step1_body: 'Но съёмка, монтаж и моушен — долго и дорого.',
         step2_title: 'Мы даём короткий путь.',
@@ -622,19 +634,21 @@
         pricing_title: 'Цены',
         pricing_lead: 'Дёшево. Быстро. Для тестов.',
         price1_kicker: 'Старт',
-        price1_money: '$3 / видео',
+        price1_old: '$3',
+        price1_money: '$1.99 / видео',
         price1_li1: 'Экспорт 720p',
         price1_li2: 'Водяной знак',
         price1_li3: 'Доставка на почту',
         price1_cta: 'Попробовать Старт',
         tag_best: 'Лучший выбор',
         price2_kicker: 'Про',
-        price2_money: '$9 / 5 видео',
+        price2_old: '$9',
+        price2_money: '$6.99 / 5 видео',
         price2_li1: 'Экспорт 1080p',
         price2_li2: 'Без водяного знака',
         price2_li3: 'Приоритетная очередь',
         price2_cta: 'Взять Про',
-        pricing_fine: 'Цены — плейсхолдеры для проверки гипотезы. Подстроим после CPA/CTR.',
+        pricing_fine: 'Скидка на запуск ограничена. Цены подстроим после первых результатов.',
 
         faq_title: 'FAQ',
         faq_lead: 'Чёткие ответы снижают сомнения.',
@@ -663,6 +677,11 @@
         gallery_ph2: 'Широкий пример #2',
         gallery_ph3: 'До / После',
         gallery_fine: 'Подсказка: в рекламе лучше всего заходит до→после в первые 2 секунды.',
+
+        foot_pricing: 'Цены',
+        foot_waitlist: 'Ранний доступ',
+        foot_privacy: 'Политика',
+        foot_terms: 'Условия',
 
         footer_fine: 'Лендинг для проверки гипотезы. Не аффилирован с Higgsfield.'
       }
