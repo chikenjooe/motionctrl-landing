@@ -66,7 +66,21 @@
       background: linear-gradient(135deg, var(--hot), var(--hot2));
       box-shadow: 0 0 30px rgba(232,255,61,.22);
     }
-    .nav{display:flex; align-items:center; gap:12px;}
+    .nav{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end;}
+    .nav a{white-space:nowrap;}
+
+    @media (max-width: 720px){
+      .top{flex-wrap:wrap; justify-content:center;}
+      .nav{justify-content:center; gap:10px;}
+    }
+    @media (max-width: 460px){
+      .container{padding-left:14px; padding-right:14px;}
+      .top{padding-left:14px; padding-right:14px;}
+      .chip{padding: 7px 10px;}
+      .btn{padding: 9px 12px; font-size: 12px;}
+      /* keep header minimal on very small screens */
+      .nav a[href='#how']{display:none;}
+    }
 
     .chip{
       border:1px solid rgba(255,255,255,.14);
@@ -325,7 +339,37 @@
       </div>
     </section>
 
-    <section id="pricing">
+    
+    <section id="gallery">
+      <div class="sec-head">
+        <div>
+          <h2 data-i18n="gallery_title">See the vibe</h2>
+          <p data-i18n="gallery_lead">A few examples of what you’ll be able to generate. (Placeholders — you’ll drop real clips/images here.)</p>
+        </div>
+      </div>
+
+      <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card" style="padding:12px;">
+          <div style="aspect-ratio: 9 / 16; border-radius: 14px; border:1px solid rgba(255,255,255,.10); background: linear-gradient(135deg, rgba(232,255,61,.12), rgba(255,255,255,.03)); display:grid; place-items:center;">
+            <div class="muted" data-i18n="gallery_ph1">Vertical demo #1</div>
+          </div>
+        </div>
+        <div class="card" style="padding:12px;">
+          <div style="aspect-ratio: 16 / 9; border-radius: 14px; border:1px solid rgba(255,255,255,.10); background: linear-gradient(135deg, rgba(161,255,0,.10), rgba(255,255,255,.03)); display:grid; place-items:center;">
+            <div class="muted" data-i18n="gallery_ph2">Wide demo #2</div>
+          </div>
+        </div>
+        <div class="card" style="padding:12px;">
+          <div style="aspect-ratio: 1 / 1; border-radius: 14px; border:1px solid rgba(255,255,255,.10); background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(232,255,61,.06)); display:grid; place-items:center;">
+            <div class="muted" data-i18n="gallery_ph3">Before / After</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="fine" style="margin-top:10px" data-i18n="gallery_fine">Tip: best-performing ads usually show before→after in the first 2 seconds.</p>
+    </section>
+
+<section id="pricing">
       <div class="sec-head">
         <div>
           <h2 data-i18n="pricing_title">Pricing</h2>
@@ -506,6 +550,13 @@
         cta_badge3: 'Creator-first UI',
         cta_disclaimer: 'Disclaimer: MVP concept. Final quality depends on input and model limitations.',
 
+        gallery_title: 'See the vibe',
+        gallery_lead: 'A few examples of what you’ll be able to generate. (Placeholders — you’ll drop real clips/images here.)',
+        gallery_ph1: 'Vertical demo #1',
+        gallery_ph2: 'Wide demo #2',
+        gallery_ph3: 'Before / After',
+        gallery_fine: 'Tip: best-performing ads usually show before→after in the first 2 seconds.',
+
         footer_fine: 'This is a landing page for hypothesis testing. Not affiliated with Higgsfield.'
       },
       ru: {
@@ -583,6 +634,13 @@
         cta_badge3: 'Creator-first UX',
         cta_disclaimer: 'Дисклеймер: MVP-концепт. Качество зависит от исходников и ограничений модели.',
 
+        gallery_title: 'Примеры',
+        gallery_lead: 'Наглядные блоки того, что будет генерироваться. (Плейсхолдеры — потом вставим реальные клипы/картинки.)',
+        gallery_ph1: 'Вертикальный пример #1',
+        gallery_ph2: 'Широкий пример #2',
+        gallery_ph3: 'До / После',
+        gallery_fine: 'Подсказка: в рекламе лучше всего заходит до→после в первые 2 секунды.',
+
         footer_fine: 'Лендинг для проверки гипотезы. Не аффилирован с Higgsfield.'
       }
     };
@@ -609,7 +667,7 @@
     (function init(){
       document.getElementById('y').textContent = new Date().getFullYear();
       const q = new URLSearchParams(location.search);
-      const lang = q.get('lang') || localStorage.getItem('lang') || (navigator.language || '').toLowerCase().startsWith('ru') ? 'ru' : 'en';
+      const lang = q.get('lang') || localStorage.getItem('lang') || (((navigator.language || '').toLowerCase().startsWith('ru')) ? 'ru' : 'en');
       setLang(lang);
     })();
 
