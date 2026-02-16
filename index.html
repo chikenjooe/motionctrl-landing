@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#07070A" />
-  <title>MotionCTRL — turn any photo into a dance video</title>
+  <title>MotionTale — turn any photo into a dance video</title>
   <meta name="description" content="Upload a photo + a reference dance video. We animate you into the clip in minutes — for pocket change." />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="MotionCTRL" />
+  <meta property="og:title" content="MotionTale" />
   <meta property="og:description" content="Turn any photo into a dance video. Photo + reference clip → you, moving." />
   <meta property="og:image" content="./og.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -255,7 +255,7 @@
 <body>
   <header>
     <div class="top">
-      <a class="brand" href="#top"><span class="logo"></span><span>MotionCTRL</span></a>
+      <a class="brand" href="#top"><span class="logo"></span><span>MotionTale</span></a>
       <div class="nav">
         <div class="chip" aria-label="language switch">
           <button id="lang-en" class="active" type="button">EN</button>
@@ -273,7 +273,7 @@
       <div class="grid">
         <div>
           <h1 data-i18n="hero_title">Turn any photo into a dance video.</h1>
-          <p class="lead" data-i18n="hero_lead">Upload your photo + a reference dance clip. MotionCTRL animates you into the video in minutes — for pocket change.</p>
+          <p class="lead" data-i18n="hero_lead">Upload your photo + a reference dance clip. MotionTale animates you into the video in minutes — for pocket change.</p>
 
           <div class="badges">
             <div class="badge" data-i18n="badge_fast">Minutes, not hours</div>
@@ -510,7 +510,7 @@
 
     <footer>
       <div class="foot">
-        <div>© <span id="y"></span> MotionCTRL</div>
+        <div>© <span id="y"></span> MotionTale</div>
         <div style="display:flex; gap:12px; flex-wrap:wrap">
           <a href="#faq">FAQ</a>
           <a href="#pricing" data-i18n="foot_pricing">Pricing</a>
@@ -529,7 +529,7 @@
     const i18n = {
       en: {
         hero_title: 'Turn any photo into a dance video.',
-        hero_lead: 'Upload your photo + a reference dance clip. MotionCTRL animates you into the video in minutes — for pocket change.',
+        hero_lead: 'Upload your photo + a reference dance clip. MotionTale animates you into the video in minutes — for pocket change.',
         badge_fast: 'Minutes, not hours',
         badge_easy: 'No editing skills',
         badge_share: 'Ready to post',
@@ -632,7 +632,7 @@
       },
       ru: {
         hero_title: 'Сделай из фото танцующее видео.',
-        hero_lead: 'Загрузи фото + референсный танцевальный клип. MotionCTRL анимирует тебя в видео за минуты — за копейки.',
+        hero_lead: 'Загрузи фото + референсный танцевальный клип. MotionTale анимирует тебя в видео за минуты — за копейки.',
         badge_fast: 'Минуты, не часы',
         badge_easy: 'Без навыков монтажа',
         badge_share: 'Готово к публикации',
@@ -776,9 +776,9 @@
       setToast('Saved — we will reach out soon');
 
       // optional: open mailto as fallback
-      const subject = encodeURIComponent('MotionCTRL early access');
+      const subject = encodeURIComponent('MotionTale early access');
       const body = encodeURIComponent(`Email: ${email}\nUse-case: ${note}\n\nSent from landing page.`);
-      window.location.href = `mailto:hello@motionctrl.example?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:hello@motiontale.pro?subject=${subject}&body=${body}`;
 
       document.getElementById('email').value = '';
       document.getElementById('note').value = '';
