@@ -481,16 +481,20 @@
       <div class="sec-head">
         <div>
           <h2 data-i18n="cta_title">Get early access</h2>
-          <p data-i18n="cta_lead">We’re still building. Tap one button and we’ll reach out when generation is ready.</p>
+          <p data-i18n="cta_lead">Sign in with Google to get early access. One click.</p>
         </div>
       </div>
 
       <div class="split">
         <div class="panel">
           <div class="mini-title" data-i18n="form_title">Generate your first video - free</div>
-          <p class="fine" style="margin:10px 0 14px" data-i18n="auth_lead">No signup form for now.</p>
-          <a class="btn primary" href="mailto:hello@motiontale.pro?subject=MotionTale%20early%20access" data-i18n="cta_email_btn">Email for early access</a>
-          <div class="fine" style="margin-top:10px; opacity:.75" data-i18n="auth_fine">We’ll reply manually and onboard you.</div>
+
+          <div class="row" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:10px">
+            <button class="btn primary" type="button" id="googleSignIn" data-i18n="auth_google">Continue with Google</button>
+            <a class="btn" href="mailto:hello@motiontale.pro?subject=MotionTale%20early%20access" data-i18n="cta_email_btn">Email us</a>
+          </div>
+
+          <div class="fine" style="margin-top:10px; opacity:.75" id="authStatus"></div>
         </div>
 
         <div class="card">
@@ -523,6 +527,7 @@
 
   <div class="toast" id="toast">Saved</div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const i18n = {
       en: {
@@ -761,7 +766,45 @@
     })();
 
 
-    // Auth temporarily disabled on landing (no form). Google OAuth returned 400 because provider isn't configured.
+    // ---- Supabase Auth (Google) ----
+    const SUPABASE_URL = 'https://lemhbieixvaeathnmnrn.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxlbWhiaWVpeHZhZWF0aG5tbnJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyNDE1MjksImV4cCI6MjA4NjgxNzUyOX0.CXASf68dH4qp7KO4LRf_jScHg8YKTc0CyQR4Ug26pLc';
+    const sb = window.supabase?.createClient?.(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function setAuthStatus(text){
+      const el = document.getElementById('authStatus');
+      if(el) el.textContent = text || '';
+    }
+
+    async function initAuth(){
+      if(!sb){ setAuthStatus('Auth is not configured.'); return; }
+
+      // For GitHub Pages this origin is https://chikenjooe.github.io
+      const redirectTo = window.location.origin + '/motionctrl-landing/#cta';
+
+      const googleBtn = document.getElementById('googleSignIn');
+      if(googleBtn){
+        googleBtn.addEventListener('click', async () => {
+          setAuthStatus('Opening Google sign-in...');
+          const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } });
+          if(error) setAuthStatus(error.message);
+        });
+      }
+
+      const { data: { session } } = await sb.auth.getSession();
+      if(session){
+        setAuthStatus('Signed in as ' + (session.user.email || ''));
+      }
+
+      sb.auth.onAuthStateChange(async (event, session) => {
+        if(session){
+          setAuthStatus('Signed in as ' + (session.user.email || ''));
+          setToast('Signed in');
+        }
+      });
+    }
+
+    initAuth();
 </script>
 </body>
 </html>
