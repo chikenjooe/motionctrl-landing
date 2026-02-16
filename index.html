@@ -487,13 +487,25 @@
 
       <div class="split">
         <div class="panel">
-          <div class="mini-title" data-i18n="form_title">Join the waitlist</div>
-          <form id="leadForm">
-            <input id="email" type="email" required placeholder="you@domain.com" />
-            <textarea id="note" placeholder="What would you use this for? (dance, ads, memes, UGC)" ></textarea>
-            <button class="btn primary" type="submit" data-i18n="form_submit">Request access</button>
-            <div class="fine" data-i18n="form_fine">No spam. One email when we launch. You can opt out anytime.</div>
-          </form>
+          <div class="mini-title" data-i18n="form_title">Generate your first video - free</div>
+
+          <div class="fine" style="margin:10px 0 14px" data-i18n="auth_lead">Sign in to generate your first video for free. We only store your email to contact you and ship the product.</div>
+
+          <div class="row" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+            <button class="btn primary" type="button" id="googleSignIn" data-i18n="auth_google">Continue with Google</button>
+          </div>
+
+          <div class="fine" style="margin:14px 0 8px; opacity:.8" data-i18n="auth_or">or</div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <input id="email" type="email" placeholder="you@domain.com" style="flex:1; min-width: 220px" />
+            <button class="btn" type="button" id="emailSignIn" data-i18n="auth_email">Send magic link</button>
+          </div>
+
+          <textarea id="note" placeholder="What would you use this for? (dance, ads, memes, UGC)" style="margin-top:10px"></textarea>
+
+          <div class="fine" style="margin-top:10px" data-i18n="auth_fine">No spam. One email when generation is ready. You can opt out anytime.</div>
+          <div class="fine" style="margin-top:6px; opacity:.7" id="authStatus"></div>
         </div>
 
         <div class="card">
@@ -526,6 +538,7 @@
 
   <div class="toast" id="toast">Saved</div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const i18n = {
       en: {
@@ -593,10 +606,10 @@
         faq3_q: 'What about privacy?',
         faq3_a: 'For MVP we recommend deleting uploads after processing and not publishing any public gallery by default.',
 
-        cta_title: 'Get early access',
-        cta_lead: 'This page is for demand testing. Leave your email — we’ll invite you when uploads are enabled.',
-        form_title: 'Join the waitlist',
-        form_submit: 'Request access',
+        cta_title: 'Generate your first video - free',
+        cta_lead: 'Sign in with Google or email to unlock a free first generation. We use this to onboard you and send the result.',
+        form_title: 'Generate your first video - free',
+        form_submit: 'Send magic link',
         form_fine: 'No spam. One email when we launch. You can opt out anytime.',
         cta_side_title: 'What you’ll get',
         cta_side_body: 'A fast motion control tool to turn a photo into a moving character using a reference clip. Start cheap, validate, then scale.',
@@ -763,27 +776,87 @@
       setLang(lang);
     })();
 
-    // lead capture MVP: store locally and open mailto
-    document.getElementById('leadForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const note = document.getElementById('note').value.trim();
-      if(!email) return;
+
+    // (Waitlist form removed) — auth flow below collects emails via Supabase.
+
+
+    // ---- Supabase Auth (Google + magic link) ----
+    const SUPABASE_URL = 'https://lemhbieixvaeathnmnrn.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxlbWhiaWVpeHZhZWF0aG5tbnJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyNDE1MjksImV4cCI6MjA4NjgxNzUyOX0.CXASf68dH4qp7KO4LRf_jScHg8YKTc0CyQR4Ug26pLc';
+
+    const sb = window.supabase?.createClient?.(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function upsertLead(session){
+      if(!sb || !session?.user) return;
+      const u = session.user;
+      const payload = {
+        user_id: u.id,
+        email: u.email,
+        provider: (u.app_metadata && u.app_metadata.provider) || 'email',
+        full_name: (u.user_metadata && (u.user_metadata.full_name || u.user_metadata.name)) || null,
+        avatar_url: (u.user_metadata && u.user_metadata.avatar_url) || null,
+        source: window.location.href,
+        updated_at: new Date().toISOString()
+      };
       try{
-        const arr = JSON.parse(localStorage.getItem('leads') || '[]');
-        arr.push({email, note, t: Date.now(), ua: navigator.userAgent});
-        localStorage.setItem('leads', JSON.stringify(arr));
-      }catch{}
-      setToast('Saved — we will reach out soon');
+        await sb.from('leads').upsert(payload, { onConflict: 'user_id' });
+      }catch(e){
+        // If table/policies aren't ready yet, ignore. Auth itself is still useful for capturing emails in Supabase Auth.
+        console.warn('lead upsert failed', e);
+      }
+    }
 
-      // optional: open mailto as fallback
-      const subject = encodeURIComponent('MotionTale early access');
-      const body = encodeURIComponent(`Email: ${email}\nUse-case: ${note}\n\nSent from landing page.`);
-      window.location.href = `mailto:hello@motiontale.pro?subject=${subject}&body=${body}`;
+    function setAuthStatus(text){
+      const el = document.getElementById('authStatus');
+      if(el) el.textContent = text || '';
+    }
 
-      document.getElementById('email').value = '';
-      document.getElementById('note').value = '';
-    });
-  </script>
+    async function initAuth(){
+      if(!sb){
+        setAuthStatus('Auth is not configured.');
+        return;
+      }
+
+      const redirectTo = window.location.origin + '/#cta';
+
+      const googleBtn = document.getElementById('googleSignIn');
+      const emailBtn = document.getElementById('emailSignIn');
+
+      if(googleBtn){
+        googleBtn.addEventListener('click', async () => {
+          setAuthStatus('Opening Google sign-in...');
+          await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } });
+        });
+      }
+
+      if(emailBtn){
+        emailBtn.addEventListener('click', async () => {
+          const email = (document.getElementById('email')?.value || '').trim();
+          if(!email){ setToast('Enter your email'); return; }
+          setAuthStatus('Sending magic link...');
+          const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } });
+          if(error){ setAuthStatus(error.message); setToast('Error'); return; }
+          setAuthStatus('Check your inbox for the magic link.');
+          setToast('Magic link sent');
+        });
+      }
+
+      const { data: { session } } = await sb.auth.getSession();
+      if(session){
+        setAuthStatus('Signed in as ' + (session.user.email || ''));
+        await upsertLead(session);
+      }
+
+      sb.auth.onAuthStateChange(async (event, session) => {
+        if(session){
+          setAuthStatus('Signed in as ' + (session.user.email || ''));
+          await upsertLead(session);
+          setToast('Signed in');
+        }
+      });
+    }
+
+    initAuth();
+</script>
 </body>
 </html>
